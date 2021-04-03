@@ -82,8 +82,12 @@ if args.generateInfinite:
         gen_output()
 
 if args.generateWallets != None and args.generateWallets > 0:
-    for wallet in range(int(args.generateWallets - 1)):
-        gen_output()
+    if args.quiet == 0:
+        for wallet in range(int(args.generateWallets - 1)):
+            gen_output()
+    else:
+        for wallet in range(int(args.generateWallets)):
+            gen_output()
 
 # if opened directly
 if __name__ == "__main__":
