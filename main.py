@@ -1,15 +1,14 @@
 '''
-depends on module: "eth-account" and "requests"
+depends on module: "eth-account"
 installation: 
 python -m pip install eth-account
-python -m pip install requests
 '''
 
 # import
 from eth_account import Account
 from os import urandom
-from requests import get
-import json
+import urllib.request
+from json import load
 import argparse
 from time import sleep
 
@@ -45,16 +44,16 @@ def get_balance():
     global acc
     with open("api_key.ini", "r") as key:
             if key.read() == "":
-                    call = get(f"https://api.etherscan.io/api?module=account&action=balance&address={str(acc.address)}&tag=latest")
-                    balance = call.json()["result"]
+                    call = urllib.request.urlopen(f"https://api.etherscan.io/api?module=account&action=balance&address={str(acc.address)}&tag=latest")
+                    balance = load(call)["result"]
                     try:
                         return balance
                     finally:
                         sleep(4.9)
             else:
                 for line in key.read():
-                    call = get(f"https://api.etherscan.io/api?module=account&action=balance&address={str(acc.address)}&tag=latest&apikey={str(line)}")
-                    balance = call.json()["result"]
+                    call = urllib.request.urlopen(f"https://api.etherscan.io/api?module=account&action=balance&address={str(acc.address)}&tag=latest&apikey={str(line)}")
+                    balance = load(call)["result"]
                     try:
                         return balance
                     finally:
