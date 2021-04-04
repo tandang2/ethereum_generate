@@ -9,7 +9,7 @@ from eth_account import Account
 from os import urandom
 import urllib.request
 from json import load
-import argparse
+from argparse import ArgumentParser
 from time import sleep
 
 # functions
@@ -62,7 +62,7 @@ def get_balance():
 
 
 # argparse
-parser = argparse.ArgumentParser(description="A tool to generate valid Ethereum Wallets", prog="Ethereum Wallet Generator")
+parser = ArgumentParser(description="A tool to generate valid Ethereum Wallets", prog="Ethereum Wallet Generator")
 parser.add_argument("-b", "--balance", help="If specified, checks the balance of each generated wallet. | SLOWS DOWN A LOT", action="store_true")
 
 gen_wallet = parser.add_mutually_exclusive_group()
@@ -82,7 +82,7 @@ if args.generateInfinite:
 
 if args.generateWallets != None and args.generateWallets > 0:
     if args.quiet == 0:
-        for wallet in range(int(args.generateWallets - 1)):
+        for wallet in range(int(args.generateWallets)):
             gen_output()
     else:
         for wallet in range(int(args.generateWallets)):
@@ -90,5 +90,5 @@ if args.generateWallets != None and args.generateWallets > 0:
 
 # if opened directly
 if __name__ == "__main__":
-    if not any(vars(args).values()) or not args.quiet:
+    if not any(vars(args).values()):
         gen_output()
