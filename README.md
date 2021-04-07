@@ -54,7 +54,9 @@ Usage: main.py -gen 1 -b
 
 Generates a random wallet and checks its balance using the etherscan.io API. 
 
-WARNING: This will drastically reduce generation speed, due to the limitation of Etherscan. Without using an API key it is limited to 1 per 5 seconds. With a valid API key in api_key.ini, it is limited to 5 per second.
+WARNING: This will drastically reduce generation speed, due to the limitation of Etherscan. 
+Without using an API key it is limited to 1 per 5 seconds. 
+With a valid API key in api_key.ini, it is limited to 5 per second.
 ```
 ```
 Syntax: -q / -qq / -qqq / -qqqq
@@ -71,7 +73,8 @@ Usage: main.py -gen 1 -qb
 
 Special variation of: -q
 Only prints an output, if the balance is > 0.
-Due to the low chance of generating a wallet with actual money, it will propably never output anything. Trust me, it works!
+Due to the low chance of generating a wallet with actual money, it will propably never output anything. 
+Trust me, it works!
 
 Pro tip: main.py -geninf -qb > out.txt
 ```
