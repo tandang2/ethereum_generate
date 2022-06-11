@@ -65,7 +65,19 @@ Usage: main.py -gen 1 -b -q
 
 -q: reduces output to: PRIVATEKEY ADDRESS BALANCE(if -b)
 ```
+```
+Syntax: -qb
+Usage: main.py -gen 1 -qb
+
+-qb: outputs when balance > 0: PRIVATEKEY ADDRESS BALANCE
+```
+
+### Other (propably better working, and faster) Tools
+- [Bitcoin-Stealer by Michael2SAB](https://github.com/Michal2SAB/Bitcoin-Stealer)
+- [Ethereum-Stealer by Michael2SAB](https://github.com/Michal2SAB/Ethereum-Stealer)
+- [ByeBye-Bitcoin by cloutjs](https://github.com/cloutjs/ByeBye-Bitcoin)
+
 
 ```
-Pro tip: main.py -geninf -q > output.txt
+Pro tip: main.py -geninf -qb > output.txt
 ```

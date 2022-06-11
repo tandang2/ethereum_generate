@@ -6,6 +6,7 @@ python -m pip install eth-account
 
 # import
 from ast import Import
+from cmath import exp
 from eth_account import Account
 from os import urandom
 from urllib.request import urlopen
@@ -49,6 +50,13 @@ def gen_output(num):
             while j < len(private_list):
                 print(private_list[j], public_list[j])
                 j += 1
+    elif args.quietbalance:
+        l = 0
+        balances = get_balance(stringlist)
+        while l < len(private_list):
+                if balances[l] > 0:
+                    print(private_list[l], public_list[l], balances[l])
+                l += l
     else:
         k = 0
         while k < len(private_list):
@@ -59,12 +67,16 @@ def gen_output(num):
 
 
 def get_balance(addresses):
-    global balance_list
-    call = urlopen(f"https://api.etherscan.io/api?module=account&action=balancemulti&address={str(addresses)}&tag=latest&apikey={str(key)}")
-    balance_list = []
-    for j in load(call)["result"]:
-        balance_list.append(int(j["balance"]))
-    return balance_list
+    try:
+        global balance_list
+        call = urlopen(f"https://api.etherscan.io/api?module=account&action=balancemulti&address={str(addresses)}&tag=latest&apikey={str(key)}")
+        balance_list = []
+        for j in load(call)["result"]:
+            balance_list.append(int(j["balance"]))
+        return balance_list
+    except:
+        print("\n\nCould not Access Etherscan.io API, or it gave an unusual response. Please check if your API key is entered correctly, or if the API might be currently unavailible.")
+        quit()
 
 def check_api_key():
     global key
@@ -88,6 +100,7 @@ if __name__ == "__main__":
 
     outprint = parser.add_mutually_exclusive_group()
     outprint.add_argument("-q", "--quiet", help="prints only nessesary output | PRIVATEKEY PUBLICKEY [BALANCE]", action="store_true")
+    outprint.add_argument("-qb", "--quietbalance", help="prints only when balance is > 0 | forces -b activation | PRIVATEKEY PUBLICKEY BALANCE", action="store_true")
     
     args = parser.parse_args()
     
@@ -97,7 +110,8 @@ file = open("api_key.ini", "r")
 key = file.readline()
 file.close()
 if key == "":
-    raise ImportError("KEY NOT FOUND. PLEASE ENTER YOUR Etherscan.io API KEY INTO api_key.ini")
+    print("\n\n KEY NOT FOUND. Please enter your Etherscan.io API key into api_key.ini")
+    quit()
 
 if args.generateInfinite:
     while True:
