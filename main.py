@@ -56,7 +56,7 @@ def gen_output(num):
         while l < len(private_list):
                 if balances[l] > 0:
                     print(private_list[l], public_list[l], balances[l])
-                l += l
+                l += 1
     else:
         k = 0
         while k < len(private_list):
